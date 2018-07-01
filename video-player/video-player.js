@@ -43,13 +43,17 @@
       isDragging = false
       DOM.progress.classList.remove('is-dragging')
     })
+    document.addEventListener('webkitfullscreenchange', () => {
+      if (!isFullScreen) {
+        onUnFullscreen()
+      }
+    })
   }
 
   function loadedmetadata () {
     DOM.totalTime.innerHTML = prettyTime(DOM.video.duration)
   }
 
-  // 동영상 재생
   function onPlay () {
     isPlaying = true
 
@@ -59,7 +63,6 @@
     DOM.video.play()
   }
 
-  // 동영상 일시정지
   function onPause () {
     isPlaying = false
 
@@ -69,7 +72,6 @@
     DOM.video.pause()
   }
 
-  // 동영상 음소거
   function onMuted () {
     isMuted = true
 
@@ -79,7 +81,6 @@
     DOM.video.muted = isMuted
   }
 
-  // 동영상 음소거 해제
   function onUnMuted () {
     isMuted = false
 
@@ -96,62 +97,28 @@
     DOM.volume.style.backgroundSize = `${(volume * 100) / 100}% 100%`
   }
 
-  // 전체화면
   function onFullscreen (event) {
     isFullScreen = true
 
     DOM.toggleFullscreenButton.classList.remove('fullscreen')
     DOM.toggleFullscreenButton.classList.add('unfullscreen')
 
-    if (!document.webkitFullscreenElement) DOM.video.webkitRequestFullscreen()
+    if (!document.webkitIsFullScreen) {
+      DOM.container.webkitRequestFullscreen()
+      DOM.container.classList.add('is-fullscreen')
+    }
   }
 
-  // 전체화면 해제
   function onUnFullscreen (event) {
     isFullScreen = false
 
     DOM.toggleFullscreenButton.classList.remove('unfullscreen')
     DOM.toggleFullscreenButton.classList.add('fullscreen')
     
-    if (document.webkitFullscreenElement) document.webkitExitFullscreen()
-  }
-
-  // 동영상 재생/일시정지 토글
-  function togglePlay () {
-    if (isPlaying) {
-      onPause()
+    if (document.webkitIsFullScreen) {
+      document.webkitExitFullscreen()
+      DOM.container.classList.remove('is-fullscreen')
     }
-    else {
-      onPlay()
-    }
-  }
-
-  // 동영상 음소거/음소거 해제 토글
-  function toggleMute () {
-    if (isMuted) {
-      onUnMuted()
-    }
-    else {
-      onMuted()
-    }
-  }
-
-  // 동영상 전체화면/전체화면 해제 토글
-  function toggleFullscreen () {
-    if (isFullScreen) {
-      onUnFullscreen()
-    }
-    else {
-      onFullscreen()
-    }
-  }  
-
-  function onFoucsed () {
-    isFocused = true
-  }
-
-  function onUnFoucsed () {
-    isFocused = false
   }
 
   function onMouseEnter () {
@@ -163,6 +130,33 @@
     if (isPlaying) {
       DOM.container.classList.remove('mouse-in')
       DOM.container.classList.add('mouse-out')
+    }
+  }  
+
+  function togglePlay () {
+    if (isPlaying) {
+      onPause()
+    }
+    else {
+      onPlay()
+    }
+  }
+
+  function toggleMute () {
+    if (isMuted) {
+      onUnMuted()
+    }
+    else {
+      onMuted()
+    }
+  }
+
+  function toggleFullscreen () {
+    if (isFullScreen) {
+      onUnFullscreen()
+    }
+    else {
+      onFullscreen()
     }
   }
 
@@ -184,7 +178,7 @@
 
   function updateTimeDisplay () {
     const currentPrettyTime = prettyTime(DOM.video.currentTime)
-
+    
     if (prevPrettyTime !== currentPrettyTime) {
       DOM.currentTime.innerHTML = currentPrettyTime
     }

@@ -14,6 +14,12 @@
   outline: none;
 }
 
+.player-container.is-fullscreen {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
 .player-container.mouse-in .player-controls {
   opacity: 1
 }
