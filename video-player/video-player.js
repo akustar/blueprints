@@ -1,11 +1,9 @@
-// 작업중
-
 {
 
   const DOM = {
     container: document.querySelector('.player-container'),
     video: document.getElementById('video'),
-    seek: document.getElementById('seek'),
+    progress: document.getElementById('progress'),
     progressFilled: document.getElementById('progressFilled'),
     progressCursor: document.getElementById('progressCursor'),
     currentTime: document.getElementById('currentTime'),
@@ -28,12 +26,14 @@
   }
 
   function initEvents () {
+    DOM.container.addEventListener('mouseenter', onMouseEnter)
+    DOM.container.addEventListener('mouseleave', onMouseLeave)
     DOM.video.addEventListener('timeupdate', onTimeupdate)
     DOM.video.addEventListener('loadedmetadata', loadedmetadata)
     DOM.togglePlayButton.addEventListener('click', togglePlay)
     DOM.toggleMuteButton.addEventListener('click', toggleMute)
     DOM.toggleFullscreenButton.addEventListener('click', toggleFullscreen)
-    DOM.seek.addEventListener('mousedown', handleTimeupdate)
+    DOM.progress.addEventListener('mousedown', handleTimeupdate)
     DOM.volume.addEventListener('input', updateVolume)
     
     document.addEventListener('mousemove', (event) => { 
@@ -41,42 +41,7 @@
     })
     document.addEventListener('mouseup', (event) => {
       isDragging = false
-      DOM.seek.classList.remove('is-dragging')
-    })
-
-    DOM.container.addEventListener('keydown', (event) => {
-      if (!event.altKey && !event.shiftKey && !event.metaKey && !event.ctrlKey) {
-        event.preventDefault()
-        switch (event.keyCode) {
-          // 엔터
-          case 13:
-            fullScreen()
-          break
-          // esc
-          case 27:
-            unFullScreen()
-          break
-          // 스페이스
-          case 32:
-            togglePlay()
-          break
-          case 37: // 왼쪽 방향 키
-            skipPrev()
-          break
-          case 39: // 오른쪽 방향 키
-            skipNext() 
-          break
-          case 38: // 위 방향 키
-            volumeUp()
-          break
-          case 40: // 아래 방향 키
-            volumeDown()
-          break
-          case 77: // M
-            toggleMute()
-          break
-        }
-      }
+      DOM.progress.classList.remove('is-dragging')
     })
   }
 
@@ -124,35 +89,11 @@
     DOM.video.muted = isMuted
   }
 
-  // 소리 키움
-  function volumeUp () {
-    const volume = Math.min(Number(DOM.video.volume) + 5, 100)
-
-    DOM.video.volume = volume / 100
-    DOM.volume.style.backgroundSize = `${(volume * 100) / 100}% 100%`
-  }
-
-  // 소리 줄임
-  function volumeDown () {
-    const volume = Math.max(Number(DOM.video.volume) - 5, 0)
-
-    DOM.video.volume = volume / 100
-    DOM.volume.style.backgroundSize = `${(volume * 100) / 100}% 100%`
-  }
-
   function updateVolume (event) {
     const volume = event.target.value
-
+    DOM.volume.value = volume
     DOM.video.volume = volume / 100
     DOM.volume.style.backgroundSize = `${(volume * 100) / 100}% 100%`
-  }
-
-  function skipPrev () {
-
-  }
-
-  function skipNext () {
-
   }
 
   // 전체화면
@@ -213,12 +154,32 @@
     isFocused = false
   }
 
+  function onMouseEnter () {
+    DOM.container.classList.remove('mouse-out')
+    DOM.container.classList.add('mouse-in')
+  }
+
+  function onMouseLeave () {
+    if (isPlaying) {
+      DOM.container.classList.remove('mouse-in')
+      DOM.container.classList.add('mouse-out')
+    }
+  }
+
   function prettyTime (t) {
     const hours = zeroFill(Math.floor(t / 3600))
     const minutes = zeroFill(Math.floor(t % 3600 / 60))
     const second = zeroFill(Math.floor(t % 3600 % 60))
 
     return `${hours}:${minutes}:${second}`
+  }
+
+  function updateProgressFilled () {
+    DOM.progressFilled.style.transform = `scaleX(${DOM.video.currentTime / DOM.video.duration})`
+  }
+
+  function updateProgressCursor () {
+    DOM.progressCursor.style.left = `${DOM.video.currentTime / DOM.video.duration * 100}%`
   }
 
   function updateTimeDisplay () {
@@ -228,14 +189,6 @@
       DOM.currentTime.innerHTML = currentPrettyTime
     }
     prevPrettyTime = currentPrettyTime
-  }
-
-  function updateProgressFilled () {
-    DOM.progressFilled.style.transform = `scaleX(${DOM.video.currentTime / DOM.video.duration})`
-  }
-
-  function updateProgressCursor () {
-    DOM.progressCursor.style.left = `${DOM.video.currentTime / DOM.video.duration * 100}%`
   }
 
   function onTimeupdate () {
@@ -249,12 +202,12 @@
 
     isDragging = true
 
-    const rect = DOM.seek.getBoundingClientRect()
+    const rect = DOM.progress.getBoundingClientRect()
     DOM.video.currentTime = Math.min(Math.max((event.clientX - rect.left) / rect.width * DOM.video.duration, 0), DOM.video.duration)
 
     onTimeupdate()
 
-    if (!DOM.seek.classList.contains('is-dragging')) DOM.seek.classList.add('is-dragging')
+    if (!DOM.progress.classList.contains('is-dragging')) DOM.progress.classList.add('is-dragging')
   }
 
   function zeroFill (n) {
