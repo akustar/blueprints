@@ -8,5 +8,8 @@
 
 주말 프로젝트로서 일주일에 1~2개 업데이트 예정
 
+### [fullpage](https://akustar.github.io/Blueprints/fullpage/index.html)
+스크롤을 통해 컨텐츠를 제공하는 방법을 보여줍니다.
+
 ### [video-player](https://akustar.github.io/Blueprints/video-player/index.html)
 video태그의 커스텀 컨트롤러를 만드는 방법을 보여줍니다.
