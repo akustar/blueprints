@@ -6,5 +6,7 @@
 
 ## Samples
 
+주말 프로젝트로서 일주일에 1~2개 업데이트 예정
+
 ### [video-player](https://github.com/akustar/Blueprints/tree/master/video-player)
 video태그의 커스텀 컨트롤러를 만드는 방법을 보여줍니다.
