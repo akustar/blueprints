@@ -4,20 +4,24 @@
   box-sizing: border-box
 }
 
+body {
+
+}
+
 .no-cursor { 
   cursor:none;
 }
 
 .player-container {
   position: relative;
-  width: 100%;
+  width: 854px;
   height: 480px;
-  max-width: 854px;
-  margin: 60px auto;
+  background-color: #000;
+  margin: 80px auto 0;
   user-select: none;
   outline: none;
   border-radius: 5px;
-  box-shadow: 0 9px 40px 0 rgba(0,0,0,.15);  
+  box-shadow: 0 9px 40px 0 rgba(0,0,0,.15);
   overflow: hidden;
 }
 
@@ -65,9 +69,14 @@
   height: 30px;
   padding: 0;
   border: 0;
+  color: #fff;
   cursor: pointer;
   background-color: transparent;
   outline: none;
+}
+
+.player-controls button:hover {
+  color: #fec401;
 }
 
 .player-controls button svg {
@@ -123,7 +132,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #6fcf97;
+  background-color: #fec401;
   transform: scaleX(0);
   transform-origin: 0 0 0;
 }
@@ -136,7 +145,7 @@
   border-radius: 50%;
   opacity: 0;
   transition: opacity .15s;
-  background-color: #ccc;
+  background-color: #fff;
 }
 
 .player-controls .player-seek:hover .progress-cursor,
@@ -154,7 +163,7 @@
   width: 100px;
   height: 4px;
   background-color: rgba(255, 255, 255, .4);
-  background-image: linear-gradient(#6fcf97, #6fcf97);
+  background-image: linear-gradient(#fec401, #fec401);
   background-size: 50% 100%;
   background-repeat: no-repeat;    
   -webkit-appearance: none;
