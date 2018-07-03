@@ -10,12 +10,15 @@
 
 .player-container {
   position: relative;
-  width: 854px;
+  width: 100%;
   height: 480px;
-  background-color: #000;
+  max-width: 854px;
   margin: 60px auto;
   user-select: none;
   outline: none;
+  border-radius: 5px;
+  box-shadow: 0 9px 40px 0 rgba(0,0,0,.15);  
+  overflow: hidden;
 }
 
 .player-container.is-fullscreen {
