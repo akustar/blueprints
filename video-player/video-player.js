@@ -2,6 +2,7 @@
 
   const DOM = {
     container: document.querySelector('.player-container'),
+    controls: document.querySelector('.player-controls'),
     video: document.getElementById('video'),
     progress: document.getElementById('progress'),
     progressFilled: document.getElementById('progressFilled'),
@@ -20,6 +21,7 @@
   let isFocused = false
   let isDragging = false
   let prevPrettyTime = ''
+  let mouseTimer = false
 
   function init () {
     initEvents()
@@ -28,6 +30,7 @@
   function initEvents () {
     DOM.container.addEventListener('mouseenter', onMouseEnter)
     DOM.container.addEventListener('mouseleave', onMouseLeave)
+    DOM.controls.addEventListener('mouseenter', onMouseEnter)
     DOM.video.addEventListener('timeupdate', onTimeupdate)
     DOM.video.addEventListener('loadedmetadata', loadedmetadata)
     DOM.togglePlayButton.addEventListener('click', togglePlay)
@@ -35,19 +38,9 @@
     DOM.toggleFullscreenButton.addEventListener('click', toggleFullscreen)
     DOM.progress.addEventListener('mousedown', handleTimeupdate)
     DOM.volume.addEventListener('input', updateVolume)
-    
-    document.addEventListener('mousemove', (event) => { 
-      if (isDragging) handleTimeupdate(event)
-    })
-    document.addEventListener('mouseup', (event) => {
-      isDragging = false
-      DOM.progress.classList.remove('is-dragging')
-    })
-    document.addEventListener('webkitfullscreenchange', () => {
-      if (!isFullScreen) {
-        onUnFullscreen()
-      }
-    })
+    document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('mouseup', onMouseUp)
+    document.addEventListener('webkitfullscreenchange', fullscreenChange)
   }
 
   function loadedmetadata () {
@@ -102,11 +95,9 @@
 
     DOM.toggleFullscreenButton.classList.remove('fullscreen')
     DOM.toggleFullscreenButton.classList.add('unfullscreen')
-
-    if (!document.webkitIsFullScreen) {
-      DOM.container.webkitRequestFullscreen()
-      DOM.container.classList.add('is-fullscreen')
-    }
+    
+    DOM.container.webkitRequestFullscreen()
+    DOM.container.classList.add('is-fullscreen')
   }
 
   function onUnFullscreen (event) {
@@ -115,10 +106,8 @@
     DOM.toggleFullscreenButton.classList.remove('unfullscreen')
     DOM.toggleFullscreenButton.classList.add('fullscreen')
     
-    if (document.webkitIsFullScreen) {
-      document.webkitExitFullscreen()
-      DOM.container.classList.remove('is-fullscreen')
-    }
+    document.webkitExitFullscreen()
+    DOM.container.classList.remove('is-fullscreen')
   }
 
   function onMouseEnter () {
@@ -131,7 +120,41 @@
       DOM.container.classList.remove('mouse-in')
       DOM.container.classList.add('mouse-out')
     }
-  }  
+  }
+
+  function onMouseMove (event) {
+    if (isDragging) {
+      handleTimeupdate(event)
+    }
+
+    onMouseObservation(event)
+  }
+
+  function onMouseUp () {
+    isDragging = false
+
+    DOM.progress.classList.remove('is-dragging')    
+  }
+  
+  function onMouseObservation (event) {
+    clearTimeout(mouseTimer)
+
+    if (isFullScreen) DOM.container.classList.remove('no-cursor')
+    
+    if (event.target.closest('.player-controls') === null) {
+      mouseTimer = setTimeout(() => {
+        onMouseLeave()
+
+        if (isFullScreen) DOM.container.classList.add('no-cursor')
+      }, 2 * 1000)
+    }
+  }
+
+  function fullscreenChange () {
+    if (!document.webkitIsFullScreen) {
+      onUnFullscreen()
+    }
+  }
 
   function togglePlay () {
     if (isPlaying) {
