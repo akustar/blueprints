@@ -21,7 +21,7 @@
   let isFocused = false
   let isDragging = false
   let prevPrettyTime = ''
-  let mouseTimer = false
+  let mouseTimer = 0
 
   function init () {
     initEvents()
