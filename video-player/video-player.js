@@ -18,7 +18,6 @@
   let isPlaying = false
   let isMuted = false
   let isFullScreen = false
-  let isFocused = false
   let isDragging = false
   let prevPrettyTime = ''
   let mouseTimer = 0
@@ -110,15 +109,23 @@
     DOM.container.classList.remove('is-fullscreen')
   }
 
+  function fullscreenChange () {
+    if (!document.webkitIsFullScreen) {
+      DOM.container.classList.remove('no-cursor')
+
+      onUnFullscreen()
+    }
+  }  
+
   function onMouseEnter () {
-    DOM.container.classList.remove('mouse-out')
-    DOM.container.classList.add('mouse-in')
+    DOM.container.classList.remove('transition-out')
+    DOM.container.classList.add('transition-in')
   }
 
   function onMouseLeave () {
     if (isPlaying) {
-      DOM.container.classList.remove('mouse-in')
-      DOM.container.classList.add('mouse-out')
+      DOM.container.classList.remove('transition-in')
+      DOM.container.classList.add('transition-out')
     }
   }
 
@@ -147,12 +154,6 @@
 
         if (isFullScreen) DOM.container.classList.add('no-cursor')
       }, 2 * 1000)
-    }
-  }
-
-  function fullscreenChange () {
-    if (!document.webkitIsFullScreen) {
-      onUnFullscreen()
     }
   }
 

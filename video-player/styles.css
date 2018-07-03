@@ -31,11 +31,11 @@ body {
   margin: auto;
 }
 
-.player-container.mouse-in .player-controls {
+.player-container.transition-in .player-controls {
   opacity: 1
 }
 
-.player-container.mouse-out .player-controls {
+.player-container.transition-out .player-controls {
   opacity: 0
 }
 
