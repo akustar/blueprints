@@ -18,18 +18,9 @@
     DOM.navLinks.forEach((elem, index) => {
       elem.addEventListener('click', (event) => {
         event.preventDefault()
-
         navigate(index)
-      })      
-    })
-  }
-
-  function navigate (index) {
-    current = index
-
-    updateNavLinks()
-
-    moveTo(current * window.innerHeight)
+      })
+    })    
   }
 
   function onMouseWheel (event) {
@@ -47,26 +38,36 @@
       current--
     }
 
-    updateNavLinks()
-    
-    moveTo(current * window.innerHeight)
+    moveTo()
   }
 
-  function moveTo (scrollTop) {
+  function navigate (index) {
+    current = index
+
+    moveTo()
+  }
+
+  function moveTo () {
     isAnimating = true
 
-    function transitionend () {
+    const transitionend = () => {
       isAnimating = false
       DOM.container.removeEventListener('transitionend', transitionend)
     }
     DOM.container.addEventListener('transitionend', transitionend)
 
+    activeNavLinks()
+    updateScrollTop()
+  }
+
+  function updateScrollTop () {
+    const scrollTop = current * window.innerHeight
     DOM.container.style.transform = `translate3d(0, ${-scrollTop}px, 0)`
   }
 
-  function updateNavLinks () {
+  function activeNavLinks () {
     DOM.navLinks.forEach((elem) => elem.classList.remove('active'))
-    DOM.navLinks[current].classList.add('active')    
+    DOM.navLinks[current].classList.add('active')
   }  
 
   init()
