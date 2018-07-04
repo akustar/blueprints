@@ -8,6 +8,7 @@
 
   let isAnimating = false
   let current = 0
+  let debounce = 0
 
   function init () {
     initEvents()
@@ -21,6 +22,12 @@
         navigate(index)
       })
     })    
+    window.addEventListener('resize', () => {
+      clearTimeout(debounce)
+      debounce = setTimeout(() => {
+        updateScrollTop()
+      }, 250)
+    })
   }
 
   function onMouseWheel (event) {
