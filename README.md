@@ -13,3 +13,6 @@
 
 ### [video-player](https://akustar.github.io/Blueprints/video-player/index.html)
 video태그의 커스텀 컨트롤러를 만드는 방법을 보여줍니다.
+
+### [sticky-note](https://github.com/akustar/Blueprints/tree/master/sticky-note)
+일렉트론으로 만들어진 스티커 메모장입니다.

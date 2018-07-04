@@ -1,0 +1,303 @@
+@font-face {
+  font-family: Whitney;
+  font-weight: 400;
+  src: url(./fonts/whitney-book.woff) format("woff")
+}
+@font-face {
+  font-family: Whitney;
+  font-weight: 500;
+  src: url(./fonts/whitney-medium.woff) format("woff")
+}
+@font-face {
+  font-family: Whitney;
+  font-weight: 600;
+  src: url(./fonts/whitney-semibold.woff) format("woff")
+}  
+@font-face {
+  font-family: Whitney;
+  font-weight: 700;
+  src: url(./fonts/whitney-bold.woff) format("woff")
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-size: 14px;
+  line-height: 1.42857143;
+  font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+  background-color: #fff2b5;
+  color: #111;
+}
+
+body.lemon {
+  background-color: #fff2b5;
+}
+body.lemon .titlebar {
+  background-color: #ffb901;
+}
+
+body.grass {
+  background-color: #c7efc4;
+}
+body.grass .titlebar {
+  background-color: #118905;
+}
+
+body.rose {
+  background-color: #ffc3f4;
+}
+body.rose .titlebar {
+  background-color: #d901a9;
+}
+
+body.amethyst {
+  background-color: #dec6fb;
+}
+body.amethyst .titlebar {
+  background-color: #5d249b;
+}
+
+body.skyblue {
+  background-color: #c4e5ff;
+}
+body.skyblue .titlebar {
+  background-color: #0179d7;
+}
+
+body.clean {
+  background-color: #f9f9f9;
+}
+body.clean .titlebar {
+  background-color: #777777;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  font-size: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+button * {
+  font-size: 14px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 0px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: rgba(0,0,0, 0.6);
+}
+::-webkit-scrollbar-track {
+  width: 6px;
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  background-color: #ffb901;
+  -webkit-app-region: drag;
+  pointer-events: none;
+  user-select: none;
+}
+
+.titlebar-edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;    
+  cursor: ns-resize;
+  -webkit-app-region: no-drag;
+}
+.titlebar button {
+  width: 32px;
+  height: 32px;
+  -webkit-app-region: no-drag;
+  pointer-events: auto;
+}
+.titlebar button svg {
+  width: 18px;
+  height: 18px;
+}
+.titlebar button.active,
+.titlebar button:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+.note {
+  padding: 15px 4px 15px 12px;
+  height: calc(100% - 32px)
+}
+.note textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.42857143;
+  padding-right: 10px;
+  word-break: keep-all;
+  font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;  
+}
+
+.palette {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  background: #333;
+  transform: translateY(-100%);
+  transition: transform 0.2s;
+  -webkit-app-region: no-drag;
+}
+
+.palette.active {
+  transform: translateY(0);
+}
+
+.palette > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  width: 55px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.palette > div svg {
+  width: 18px;
+  height: 18px;
+  display: none;
+  pointer-events: none;
+}
+.palette > div:hover svg {
+  display: block;
+}
+
+.palette > div:first-child {
+  background-color: #ffb900;
+}
+.palette > div:nth-child(2) {
+  background-color: #108904;
+}
+.palette > div:nth-child(3) {
+  background-color: #d900a9;
+}
+.palette > div:nth-child(4) {
+  background-color: #5c239b;
+}
+.palette > div:nth-child(5) {
+  background-color: #0078d7;
+}
+.palette > div:last-child {
+  background-color: #767676;
+}
+
+.lemon .palette > div:first-child svg {
+  display: block;
+}
+.grass .palette > div:nth-child(2) svg {
+  display: block;
+}
+.rose .palette > div:nth-child(3) svg {
+  display: block;
+}
+.amethyst .palette > div:nth-child(4) svg {
+  display: block;
+}
+.skyblue .palette > div:nth-child(5) svg {
+  display: block;
+}
+.clean .palette > div:last-child svg {
+  display: block;
+}
+
+
+.modal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  position: absolute;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.65);
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+
+.modal.active {
+  display: flex;
+  opacity: 1
+}
+.modal.active .inner{
+  transform: scale(1);
+}
+
+.modal .inner {
+  width: 100%;
+  height: 100%;
+  max-width: 260px;
+  max-height: 120px;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 24px 22px;
+  transform: scale(0);
+  transition: transform .15s ease;
+}
+
+.modal h3 {
+  text-align: center;
+}
+
+.modal-buttons {
+  padding-top: 14%;
+  text-align: right;
+}
+
+.modal-buttons button {
+  margin-left: 10px;
+}
+
+.modal-buttons button:hover {
+  text-decoration: underline
+}
+
+
+
+
