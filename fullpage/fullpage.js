@@ -32,7 +32,6 @@
       if (current === DOM.sections.length - 1) return
       current++
     }
-    // UP
     else if (direction === 'UP') {
       if (current === 0) return
       current--
