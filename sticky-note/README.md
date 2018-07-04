@@ -10,8 +10,6 @@
 
 <img src="screenshots/sticky-note.png" alt="sticky-note 화면-1"/>
 
-신촌 스터디 과제
-
 ### 설치
 
 ```bash
