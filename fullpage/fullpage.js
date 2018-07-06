@@ -36,11 +36,17 @@
     const direction = event.deltaY > 0 ? 'DOWN' : 'UP'
 
     if (direction === 'DOWN') {
-      if (current === DOM.sections.length - 1) return
+      if (current === DOM.sections.length - 1) {
+        return
+      }
+
       current++
     }
     else if (direction === 'UP') {
-      if (current === 0) return
+      if (current === 0) {
+        return
+      }
+      
       current--
     }
 
@@ -77,5 +83,5 @@
   }  
 
   init()
-  
+
 })()
