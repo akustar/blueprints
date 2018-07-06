@@ -1,4 +1,4 @@
-{
+(() => {
 
   const DOM = {
     dropZone: document.getElementById('dropZone'),
@@ -49,4 +49,5 @@
   }
 
   init()
-}
+  
+})()
