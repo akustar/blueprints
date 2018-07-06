@@ -1,4 +1,4 @@
-{
+(() => {
 
   const DOM = {
     container: document.querySelector('.player-container'),
@@ -233,4 +233,5 @@
   }
 
   init()
-}
+
+})()
