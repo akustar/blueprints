@@ -1,5 +1,5 @@
-// 리팩토링 필요
-{
+(() => {
+
   const DOM = {
     container: document.querySelector('.fullpage-container'),
     sections: document.querySelectorAll('.fullpage-container section'),
@@ -77,4 +77,5 @@
   }  
 
   init()
-}
+  
+})()
