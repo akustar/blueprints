@@ -8,11 +8,14 @@
 
 주말 프로젝트로서 일주일에 1~2개 업데이트 예정
 
+### [video-player](https://akustar.github.io/Blueprints/video-player/index.html)
+video태그의 커스텀 컨트롤러를 만드는 방법을 보여줍니다.
+
 ### [fullpage](https://akustar.github.io/Blueprints/fullpage/index.html)
 스크롤을 통해 컨텐츠를 제공하는 방법을 보여줍니다.
 
-### [video-player](https://akustar.github.io/Blueprints/video-player/index.html)
-video태그의 커스텀 컨트롤러를 만드는 방법을 보여줍니다.
+### [dynamic-scroll](https://akustar.github.io/Blueprints/dynamic-scroll/index.html)
+스크롤을 통해 컨텐츠를 제공하는 방법을 보여줍니다.
 
 ### [drag-drop](https://akustar.github.io/Blueprints/drag-drop/index.html)
 드래그&드롭으로 파일을 업로드 하고 업로드 된 리스트를 보여줍니다. - 작업중
