@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.rotatable {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.box {
+  width: 500px;
+  height: 800px;
+  border: 10px solid blue;
+  transition: transform 0.1s;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
