@@ -1,0 +1,65 @@
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'Blokk';
+	src: url('./fonts/blokk/BLOKKRegular.eot');
+	src: url('./fonts/blokk/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+		   url('./fonts/blokk/BLOKKRegular.woff') format('woff'),
+		   url('./fonts/blokk/BLOKKRegular.svg#BLOKKRegular') format('svg');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1 {
+  font: 400 32px/40px sans-serif;
+  margin: 0 0 24px;
+}
+
+.blokk {
+  font: 400 16px/24px 'Blokk', sans-serif;
+  color: #e6e6e6;
+  letter-spacing: -0.05em;
+  word-break: break-word;
+}
+
+.gallery-container {
+  position: relative;
+  width: 90%;
+  min-height: 100vh;
+  max-width: 856px;
+  margin: 0 auto;
+  padding: 48px 0 12px;
+}
+
+.gallery {
+  display: flex;
+  align-items: center;
+  scroll-snap-type: x mandatory;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 10px 0;
+}
+
+.gallery .card {
+  min-width: 75%;
+  margin-right: 20px;
+  background-color: #e8eaf6;
+  scroll-snap-align: center;
+}
